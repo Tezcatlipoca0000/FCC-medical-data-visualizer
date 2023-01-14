@@ -29,7 +29,8 @@ def draw_cat_plot():
 
 
     # Get the figure for the output
-    fig = sns.catplot(data=df_cat, kind='count', x='variable', hue='value', col='cardio')
+    cat_plot = sns.catplot(data=df_cat, kind='count', x='variable', hue='value', col='cardio')
+    fig = cat_plot.figure
 
 
     # Do not modify the next two lines
@@ -40,6 +41,7 @@ def draw_cat_plot():
 # Draw Heat Map
 def draw_heat_map():
     # Clean the data
+    global df
     df = df[df['ap_lo'] <= df['ap_hi']]
     df = df[df['height'] >= df['height'].quantile(0.025)]
     df = df[df['height'] <= df['height'].quantile(0.975)]
@@ -56,7 +58,8 @@ def draw_heat_map():
 
 
     # Set up the matplotlib figure
-    fig, ax = sns.heatmap(corr, mask=mask, annot=True, fmt='.1f', center=0, vmax=0.3)
+    heat_map = sns.heatmap(corr, mask=mask, annot=True, fmt='.1f', center=0, vmax=0.3)
+    fig, ax = heat_map.figure()
 
     # Draw the heatmap with 'sns.heatmap()'
     sns.heatmap(corr, mask=mask, annot=True, fmt='.1f', center=0, vmax=0.3)
